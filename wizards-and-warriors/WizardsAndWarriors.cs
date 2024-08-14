@@ -4,10 +4,13 @@ abstract class Character
 {
     public string CharacterType { get; private set; }
     public bool IsVulnerable { get; private set; }
-    protected Character(string characterType)
+    protected Character()
+    {
+        IsVulnerable = false;
+    }
+    protected Character(string characterType) : this()
     {
         CharacterType = characterType;
-        IsVulnerable = false;
     }
 
     public abstract int DamagePoints(Character target);
