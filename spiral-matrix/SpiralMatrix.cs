@@ -2,37 +2,33 @@ using System;
 
 public class SpiralMatrix
 {
+
     public static int[,] GetMatrix(int size)
     {
-        var counter = 1;
-        int xCounter, yCounter = size;
-        int[,] array = new int[size, size];
+        int[,] matrix = new int[size, size];
+        int num = 1;
+        int totalLayers = (size + 1) / 2; 
 
-        for (var i = 1; i < size; i++)
+        for (int layer = 0; layer < totalLayers; layer++)
         {
-            for (var j = 1; j < size; j++)
+            for (int i = layer; i < size - layer; i++)
             {
-                array[i, i] = counter++;
+                matrix[layer, i] = num++;
+            }
+            for (int i = layer + 1; i < size - layer; i++)
+            {
+                matrix[i, size - layer - 1] = num++;
+            }
+            for (int i = size - layer - 2; i >= layer; i--)
+            {
+                matrix[size - layer - 1, i] = num++;
+            }
+            for (int i = size - layer - 2; i > layer; i--)
+            {
+                matrix[i, layer] = num++;
             }
         }
 
-        return array;
-    }
-
-    static int[,] RotateMatrixCounterClockwise(int[,] oldMatrix)
-    {
-        int[,] newMatrix = new int[oldMatrix.GetLength(1), oldMatrix.GetLength(0)];
-        int newColumn, newRow = 0;
-        for (int oldColumn = oldMatrix.GetLength(1) - 1; oldColumn >= 0; oldColumn--)
-        {
-            newColumn = 0;
-            for (int oldRow = 0; oldRow < oldMatrix.GetLength(0); oldRow++)
-            {
-                newMatrix[newRow, newColumn] = oldMatrix[oldRow, oldColumn];
-                newColumn++;
-            }
-            newRow++;
-        }
-        return newMatrix;
+        return matrix;
     }
 }
